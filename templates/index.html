@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered diabetes prediction using machine learning. Get instant risk assessment and personalized health recommendations.">
+    <meta name="keywords" content="diabetes prediction, machine learning, health assessment, AI diagnosis">
+    <title>Diabetes Prediction AI | Advanced ML Risk Assessment</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🏥</span>
+                <span>Diabetes AI</span>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#prediction">Prediction</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>AI-Powered Diabetes Prediction</h1>
+            <p>Advanced machine learning system for accurate diabetes risk assessment. Get instant predictions with personalized health recommendations.</p>
+            
+            {% if training_results %}
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">{{ training_results.models | length }}</div>
+                    <div class="stat-label">ML Models Trained</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">{{ (training_results.models[training_results.best_model].accuracy * 100) | round(1) }}%</div>
+                    <div class="stat-label">Model Accuracy</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">{{ (training_results.models[training_results.best_model].roc_auc * 100) | round(1) }}%</div>
+                    <div class="stat-label">ROC-AUC Score</div>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        
+        <!-- Prediction Form -->
+        <section id="prediction">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">Patient Information</h2>
+                </div>
+                
+                <form id="prediction-form">
+                    <div class="form-grid">
+                        <!-- Pregnancies -->
+                        <div class="form-group">
+                            <label class="form-label" for="pregnancies">
+                                👶 Pregnancies
+                            </label>
+                            <p class="form-description">Number of times pregnant</p>
+                            <input type="number" id="pregnancies" class="form-input" 
+                                   min="0" max="20" step="1" value="0" required>
+                        </div>
+                        
+                        <!-- Glucose -->
+                        <div class="form-group">
+                            <label class="form-label" for="glucose">
+                                🍬 Glucose Level (mg/dL)
+                            </label>
+                            <p class="form-description">Plasma glucose concentration</p>
+                            <input type="number" id="glucose" class="form-input" 
+                                   min="0" max="200" step="1" value="120" required>
+                        </div>
+                        
+                        <!-- Blood Pressure -->
+                        <div class="form-group">
+                            <label class="form-label" for="blood-pressure">
+                                💓 Blood Pressure (mm Hg)
+                            </label>
+                            <p class="form-description">Diastolic blood pressure</p>
+                            <input type="number" id="blood-pressure" class="form-input" 
+                                   min="0" max="150" step="1" value="80" required>
+                        </div>
+                        
+                        <!-- Skin Thickness -->
+                        <div class="form-group">
+                            <label class="form-label" for="skin-thickness">
+                                📏 Skin Thickness (mm)
+                            </label>
+                            <p class="form-description">Triceps skin fold thickness</p>
+                            <input type="number" id="skin-thickness" class="form-input" 
+                                   min="0" max="100" step="1" value="20" required>
+                        </div>
+                        
+                        <!-- Insulin -->
+                        <div class="form-group">
+                            <label class="form-label" for="insulin">
+                                💉 Insulin (mu U/ml)
+                            </label>
+                            <p class="form-description">2-Hour serum insulin</p>
+                            <input type="number" id="insulin" class="form-input" 
+                                   min="0" max="900" step="1" value="80" required>
+                        </div>
+                        
+                        <!-- BMI -->
+                        <div class="form-group">
+                            <label class="form-label" for="bmi">
+                                ⚖️ BMI
+                                <span id="bmi-value" class="range-value">25.0</span>
+                            </label>
+                            <p class="form-description">Body Mass Index</p>
+                            <input type="range" id="bmi" class="form-input" 
+                                   min="10" max="70" step="0.1" value="25" required>
+                        </div>
+                        
+                        <!-- Diabetes Pedigree Function -->
+                        <div class="form-group">
+                            <label class="form-label" for="dpf">
+                                🧬 Pedigree Function
+                                <span id="dpf-value" class="range-value">0.5</span>
+                            </label>
+                            <p class="form-description">Genetic diabetes likelihood</p>
+                            <input type="range" id="dpf" class="form-input" 
+                                   min="0" max="2.5" step="0.01" value="0.5" required>
+                        </div>
+                        
+                        <!-- Age -->
+                        <div class="form-group">
+                            <label class="form-label" for="age">
+                                👤 Age (years)
+                            </label>
+                            <p class="form-description">Patient age</p>
+                            <input type="number" id="age" class="form-input" 
+                                   min="1" max="120" step="1" value="30" required>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            🔮 Predict Diabetes Risk
+                        </button>
+                        <button type="button" id="sample-btn" class="btn btn-primary" 
+                                style="flex: 0 0 auto; background: var(--gradient-success);">
+                            📊 Load Sample
+                        </button>
+                        <button type="button" id="reset-btn" class="btn btn-primary" 
+                                style="flex: 0 0 auto; background: var(--gradient-warning);">
+                            🔄 Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <h3>Analyzing your data...</h3>
+            <p>Our AI is processing your information</p>
+        </div>
+        
+        <!-- Results -->
+        <div id="results" class="results">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h2 class="card-title">Prediction Results</h2>
+                </div>
+                
+                <div class="prediction-result">
+                    <div id="result-icon" class="result-icon">✅</div>
+                    <h2 id="result-status" class="result-status">Low Diabetes Risk</h2>
+                    <div id="result-probability" class="result-probability">0%</div>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">Diabetes Risk Probability</p>
+                    <div id="result-risk" class="result-risk risk-low">Low Risk</div>
+                </div>
+                
+                <div class="probability-bars">
+                    <div class="probability-bar">
+                        <div class="probability-label">
+                            <span>✅ No Diabetes</span>
+                            <span id="no-diabetes-percent">0%</span>
+                        </div>
+                        <div class="probability-track">
+                            <div id="probability-no-diabetes" class="probability-fill no-diabetes" style="width: 0%;">
+                                <span id="no-diabetes-percent-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="probability-bar">
+                        <div class="probability-label">
+                            <span>⚠️ Diabetes</span>
+                            <span id="diabetes-percent">0%</span>
+                        </div>
+                        <div class="probability-track">
+                            <div id="probability-diabetes" class="probability-fill diabetes" style="width: 0%;">
+                                <span id="diabetes-percent-fill"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💡</div>
+                    <h2 class="card-title">Health Recommendations</h2>
+                </div>
+                
+                <div id="recommendations-list" class="recommendations">
+                    <!-- Recommendations will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Model Information -->
+            <div class="model-info">
+                <div>
+                    <strong>Model Used:</strong> <span id="model-name">-</span>
+                </div>
+                <div>
+                    <strong>Prediction Time:</strong> <span id="prediction-time">-</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works -->
+        <section id="how-it-works" class="card mt-4">
+            <div class="card-header">
+                <div class="card-icon">🤖</div>
+                <h2 class="card-title">How It Works</h2>
+            </div>
+            
+            <div style="display: grid; gap: 2rem;">
+                <div>
+                    <h3 style="color: var(--primary-light); margin-bottom: 0.5rem;">
+                        🔬 Advanced Machine Learning
+                    </h3>
+                    <p style="color: var(--text-secondary);">
+                        Our system uses multiple state-of-the-art machine learning algorithms including 
+                        Random Forest, XGBoost, SVM, and Gradient Boosting to analyze your health data 
+                        and predict diabetes risk with high accuracy.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--primary-light); margin-bottom: 0.5rem;">
+                        📈 Comprehensive Analysis
+                    </h3>
+                    <p style="color: var(--text-secondary);">
+                        The AI analyzes 8 key health indicators including glucose levels, BMI, blood pressure, 
+                        insulin levels, and genetic factors to provide a comprehensive risk assessment.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--primary-light); margin-bottom: 0.5rem;">
+                        🎯 Personalized Recommendations
+                    </h3>
+                    <p style="color: var(--text-secondary);">
+                        Based on your results, you'll receive tailored health recommendations to help you 
+                        manage or prevent diabetes, including diet, exercise, and lifestyle changes.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--primary-light); margin-bottom: 0.5rem;">
+                        🔒 Privacy & Security
+                    </h3>
+                    <p style="color: var(--text-secondary);">
+                        Your health data is processed locally and never stored. All predictions are made 
+                        in real-time with complete privacy and security.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Disclaimer -->
+        <div class="card" style="background: rgba(239, 68, 68, 0.1); border-color: var(--danger-color);">
+            <div style="display: flex; gap: 1rem; align-items: start;">
+                <div style="font-size: 2rem;">⚠️</div>
+                <div>
+                    <h3 style="color: var(--danger-color); margin-bottom: 0.5rem;">Medical Disclaimer</h3>
+                    <p style="color: var(--text-secondary);">
+                        This tool is for educational and informational purposes only. It is not a substitute 
+                        for professional medical advice, diagnosis, or treatment. Always seek the advice of 
+                        your physician or other qualified health provider with any questions you may have 
+                        regarding a medical condition.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Diabetes Prediction AI. Built with advanced machine learning.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+                {% if training_results %}
+                Powered by {{ training_results.best_model }} | 
+                Trained on {{ training_results.training_date }}
+                {% else %}
+                Train models to see performance metrics
+                {% endif %}
+            </p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+    <script>
+        // Update probability bar percentages
+        function updateProbabilityBars(probability) {
+            const noDiabetesBar = document.getElementById('probability-no-diabetes');
+            const diabetesBar = document.getElementById('probability-diabetes');
+            
+            document.getElementById('no-diabetes-percent').textContent = 
+                `${probability.no_diabetes.toFixed(1)}%`;
+            document.getElementById('diabetes-percent').textContent = 
+                `${probability.diabetes.toFixed(1)}%`;
+            
+            // Reset widths
+            noDiabetesBar.style.width = '0%';
+            diabetesBar.style.width = '0%';
+            
+            // Animate bars
+            setTimeout(() => {
+                noDiabetesBar.style.width = `${probability.no_diabetes}%`;
+                diabetesBar.style.width = `${probability.diabetes}%`;
+            }, 100);
+        }
+    </script>
+</body>
+</html>

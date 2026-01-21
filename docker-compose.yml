@@ -1,0 +1,23 @@
+# Docker Compose Configuration for Diabetes Prediction ML
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: diabetes-prediction-ml
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./static:/app/static
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
