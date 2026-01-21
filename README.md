@@ -12,7 +12,7 @@
 **Advanced Machine Learning System for Diabetes Risk Prediction**  
 *Featuring SHAP Explainability, Model Calibration, and Multi-Cloud Deployment*
 
-[Live Demo](#) | [Documentation](DISTINCTION_COMPLETE.md) | [Features](#features) | [Quick Start](#quick-start)
+**🏠 Local Access:** http://localhost:5000 | [GitHub Repository](https://github.com/loke2511/diabetes-prediction-ml) | [Documentation](DISTINCTION_COMPLETE.md) | [Features](#features) | [Quick Start](#quick-start---run-locally)
 
 </div>
 
@@ -74,13 +74,51 @@
 
 ---
 
-## 🚀 **Quick Start**
+## 🚀 **Quick Start - Run Locally**
 
-### **Option 1: Docker (Recommended)**
+### **🏠 LOCAL ACCESS (Recommended for Students/Development)**
+
+**Your application runs at:** `http://localhost:5000`
+
+#### **Step 1: Clone Repository**
+```bash
+git clone https://github.com/loke2511/diabetes-prediction-ml.git
+cd diabetes-prediction-ml
+```
+
+#### **Step 2: Install Dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+#### **Step 3: Download Dataset & Train Models**
+```bash
+# Download real PIMA dataset (768 patients)
+python download_dataset.py
+
+# Train all 7 models with SHAP and calibration
+python train_advanced.py
+```
+
+#### **Step 4: Run Application**
+```bash
+python app.py
+```
+
+#### **Step 5: Access in Browser**
+```
+Open your browser and go to: http://localhost:5000
+```
+
+**✅ That's it! Your ML system is now running locally!**
+
+---
+
+### **🐳 Option 2: Docker (Alternative)**
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/diabetes-prediction-ml.git
+git clone https://github.com/loke2511/diabetes-prediction-ml.git
 cd diabetes-prediction-ml
 
 # Start with Docker Compose
@@ -89,27 +127,7 @@ docker-compose up -d
 # Access at http://localhost:5000
 ```
 
-### **Option 2: Local Installation**
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/diabetes-prediction-ml.git
-cd diabetes-prediction-ml
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Download real PIMA dataset
-python download_dataset.py
-
-# Train models with SHAP and calibration
-python train_advanced.py
-
-# Run the application
-python app.py
-
-# Access at http://localhost:5000
-```
+**Note:** For college submissions and demos, **localhost is perfect!** No cloud deployment needed.
 
 ---
 
