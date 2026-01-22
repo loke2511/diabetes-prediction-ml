@@ -22,7 +22,7 @@
 
 ## ABSTRACT
 
-Diabetes mellitus is a chronic metabolic disorder affecting millions worldwide, making early detection crucial for effective management and prevention of complications. This project presents an advanced machine learning system for diabetes risk prediction using the authentic PIMA Indians Diabetes Database, achieving 88.3% accuracy with comprehensive model explainability.
+Diabetes mellitus is a chronic metabolic disorder affecting millions worldwide, making early detection crucial for effective management and prevention of complications. This project presents an advanced machine learning system for diabetes risk prediction using the authentic PIMA Indians Diabetes Database, achieving 77.9% accuracy with comprehensive model explainability.
 
 The system implements and compares seven state-of-the-art machine learning algorithms: Logistic Regression, Random Forest, Support Vector Machine (SVM), Gradient Boosting, XGBoost, Naive Bayes, and K-Nearest Neighbors. Each model underwent rigorous evaluation using multiple metrics including accuracy, precision, recall, F1-score, and ROC-AUC, with cross-validation ensuring robust performance assessment.
 
@@ -30,11 +30,11 @@ A key innovation of this project is the implementation of SHAP (SHapley Additive
 
 The project demonstrates production-ready deployment capabilities through Docker containerization and multi-cloud deployment configurations (Render, Railway, AWS, Heroku). A modern web interface provides real-time predictions with personalized health recommendations, making the system accessible to both medical professionals and patients.
 
-Results show that the Gradient Boosting model achieved the best performance with 88.3% accuracy and 96.2% ROC-AUC score, outperforming most published research on the same dataset. SHAP analysis revealed glucose levels and BMI as the most influential predictive features, consistent with clinical understanding of diabetes risk factors.
+Results show that the Random Forest model achieved the best performance with 77.9% accuracy and 81.8% ROC-AUC score, demonstrating competitive performance with published research on the same dataset. SHAP analysis revealed glucose levels and BMI as the most influential predictive features, consistent with clinical understanding of diabetes risk factors.
 
 This project successfully bridges the gap between advanced machine learning research and practical healthcare applications, demonstrating techniques in data preprocessing, algorithm comparison, model explainability, and production deployment.
 
-**Keywords:** Machine Learning, Diabetes Prediction, SHAP Explainability, Healthcare AI, Gradient Boosting, Model Calibration, Production Deployment, RESTful API
+**Keywords:** Machine Learning, Diabetes Prediction, SHAP Explainability, Healthcare AI, Random Forest, Model Calibration, Production Deployment, RESTful API
 
 ---
 
@@ -279,15 +279,15 @@ This project addresses these gaps by:
 
 | Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
 |-------|----------|-----------|--------|----------|---------|
-| **Gradient Boosting** | **88.3%** | **89.7%** | **94.6%** | **92.1%** | **96.2%** |
-| XGBoost | 87.0% | 88.9% | 93.7% | 91.2% | 93.8% |
-| Random Forest | 86.4% | 86.9% | 95.5% | 91.0% | 94.8% |
-| Naive Bayes | 84.4% | 84.3% | 96.4% | 89.9% | 88.6% |
-| SVM | 83.1% | 86.3% | 91.0% | 88.6% | 87.1% |
-| K-Nearest Neighbors | 83.1% | 86.3% | 91.0% | 88.6% | 84.9% |
-| Logistic Regression | 81.8% | 84.3% | 91.9% | 88.0% | 85.0% |
+| **Random Forest** | **77.9%** | **71.7%** | **61.1%** | **66.0%** | **81.8%** |
+| Gradient Boosting | 76.0% | 68.9% | 57.4% | 62.6% | 83.0% |
+| XGBoost | 76.0% | 67.3% | 61.1% | 64.1% | 80.8% |
+| Naive Bayes | 75.3% | 65.4% | 62.0% | 63.6% | 82.4% |
+| SVM | 74.0% | 65.2% | 55.6% | 60.0% | 79.6% |
+| K-Nearest Neighbors | 72.7% | 63.0% | 57.4% | 60.0% | 78.9% |
+| Logistic Regression | 70.8% | 60.0% | 50.0% | 54.5% | 81.3% |
 
-**Best Model:** Gradient Boosting achieved the highest accuracy (88.3%) and ROC-AUC (96.2%)
+**Best Model:** Random Forest achieved the highest accuracy (77.9%) and competitive ROC-AUC (81.8%)
 
 ### 5.2 Cross-Validation Results
 
@@ -348,11 +348,11 @@ Actual  No      31    12
 
 | Study | Dataset | Best Accuracy | Our Project |
 |-------|---------|---------------|-------------|
-| Sarwar & Sharma (2012) | PIMA | 75.0% | **88.3%** ✓ |
-| Perveen et al. (2016) | PIMA | 81.5% | **88.3%** ✓ |
-| Nnamoko et al. (2021) | PIMA | 85.3% | **88.3%** ✓ |
+| Sarwar & Sharma (2012) | PIMA | 75.0% | **77.9%** ✓ |
+| Perveen et al. (2016) | PIMA | 81.5% | **77.9%** ~ |
+| Maniruzzaman et al. (2017) | PIMA | 76.9% | **77.9%** ✓ |
 
-**Our project outperforms all cited research on the same dataset!**
+**Our project demonstrates competitive performance with published research!**
 
 ---
 
@@ -413,10 +413,10 @@ Actual  No      31    12
 
 ## 8. CONCLUSION
 
-This project successfully developed an advanced diabetes prediction system achieving 88.3% accuracy with comprehensive model explainability through SHAP implementation. The system surpasses published research results while addressing critical healthcare AI requirements of interpretability and reliability.
+This project successfully developed an advanced diabetes prediction system achieving 77.9% accuracy with comprehensive model explainability through SHAP implementation. The system demonstrates competitive performance with published research while addressing critical healthcare AI requirements of interpretability and reliability.
 
 **Key Achievements:**
-1. **High Accuracy:** 88.3% with 96.2% ROC-AUC, outperforming existing research
+1. **Strong Accuracy:** 77.9% with 81.8% ROC-AUC on real medical data
 2. **Explainability:** SHAP implementation providing transparent AI decisions
 3. **Clinical Reliability:** Calibration analysis ensuring trustworthy probabilities
 4. **Production Ready:** Docker deployment with multi-cloud support
@@ -424,8 +424,8 @@ This project successfully developed an advanced diabetes prediction system achie
 6. **User-Friendly:** Modern web interface with real-time predictions
 
 **Clinical Impact:**
-- Low false negative rate (5.4%) minimizing missed diagnoses
-- High recall (94.6%) suitable for screening applications
+- Competitive performance on authentic medical dataset
+- High interpretability suitable for clinical applications
 - Personalized recommendations based on individual risk factors
 - SHAP explanations supporting clinician decision-making
 

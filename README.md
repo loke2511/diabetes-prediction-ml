@@ -20,7 +20,7 @@
 
 ## 🌟 **Highlights**
 
-- 🏆 **88.3% Accuracy** with Gradient Boosting on real PIMA dataset
+- 🏆 **77.9% Accuracy** with Random Forest on real PIMA dataset
 - 🔬 **SHAP Explainability** for transparent AI decision-making
 - 📊 **7 ML Models** trained and compared comprehensively
 - 🐳 **Docker Ready** for instant deployment
@@ -34,13 +34,13 @@
 
 | Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
 |-------|----------|-----------|--------|----------|---------|
-| **Gradient Boosting** ⭐ | **88.3%** | **89.7%** | **94.6%** | **92.1%** | **96.2%** |
-| XGBoost | 87.0% | 88.9% | 93.7% | 91.2% | 93.8% |
-| Random Forest | 86.4% | 86.9% | 95.5% | 91.0% | 94.8% |
-| Naive Bayes | 84.4% | 84.3% | 96.4% | 89.9% | 88.6% |
-| SVM | 83.1% | 86.3% | 91.0% | 88.6% | 87.1% |
-| K-Nearest Neighbors | 83.1% | 86.3% | 91.0% | 88.6% | 84.9% |
-| Logistic Regression | 81.8% | 84.3% | 91.9% | 88.0% | 85.0% |
+| **Random Forest** ⭐ | **77.9%** | **71.7%** | **61.1%** | **66.0%** | **81.8%** |
+| Gradient Boosting | 76.0% | 68.9% | 57.4% | 62.6% | 83.0% |
+| XGBoost | 76.0% | 67.3% | 61.1% | 64.1% | 80.8% |
+| SVM | 74.0% | 65.2% | 55.6% | 60.0% | 79.6% |
+| Logistic Regression | 70.8% | 60.0% | 50.0% | 54.5% | 81.3% |
+| Naive Bayes | 75.3% | 65.4% | 62.0% | 63.6% | 82.4% |
+| K-Nearest Neighbors | 72.7% | 63.0% | 57.4% | 60.0% | 78.9% |
 
 *Results on real PIMA Indians Diabetes Dataset (768 samples)*
 
